@@ -1,0 +1,26 @@
+[
+  {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+      "name": "Administrador",
+      "permissions": [1,2,3,31,32,33,4,5, 6, 7, 8, 9,10,11,12,28,29,30,25,26,27,22,23,24,19,20,21]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+      "name": "Cliente",
+      "permissions": [31,23,19]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+      "name": "Jefe de Seguridad",
+      "permissions": [28,29,19]
+    }
+  }
+]

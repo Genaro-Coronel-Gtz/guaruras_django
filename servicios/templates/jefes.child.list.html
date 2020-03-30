@@ -1,0 +1,48 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Parientes Asignados{% endblock %}
+{% block content %}
+	<div class="text-center">
+		<h1>Parientes Asignados</h1><br/>
+		<a role="button" class="btn btn-success" href="{% url 'jefe_guardia_asignar' id %}">Asignar nuevo pariente</a><br/><br/>
+		{% if object_list %}
+			<table class="table table-responsive table-striped">
+				<thead>
+					<tr >
+						<th class="text-center">Nombre</th>
+						<th class="text-center">Correo</th>
+						<th class="text-center">Nombre de la Empresa</th>
+						<th class="text-center" colspan="3">Opciones</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for object in object_list %}
+						<tr>
+							<td>{{ object.pariente.user.username }}</td>
+							<td>{{ object.pariente.user.email }}</td>
+							<td>{{ object.pariente.nombre_empresa }}</td>
+							<td><a href="{% url 'user_detail' object.pariente.pk %}">
+								<i class="fa fa-search" aria-hidden="true"></i> Ver Perfil</a>
+							</td>
+							<td><a href="{% url 'pariente_update' object.jefe_seguridad.id object.pariente.id %}">
+								<i class="fa fa-pencil" aria-hidden="true"></i> Modificar</a>
+							</td>
+							<td>
+								<a href="{% url 'pariente_delete' object.jefe_seguridad.id object.pariente.id %}">
+									<i class="fa fa-minus-circle" aria-hidden="true"></i> 
+								Eliminar</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% include 'base.paginator.html' with paginator=page_obj %}
+		{% else %}
+		    <div class="alert alert-warning" role="alert">
+	            No tiene parientes asignados
+	        </div>
+		{% endif %}
+	</div>
+	<a role="button" class="btn btn-secondary" href="{% url 'jefes_list' %}">Regresar</a>
+{% endblock %}

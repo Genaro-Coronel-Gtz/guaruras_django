@@ -1,0 +1,86 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Listado de Alertas{% endblock %}
+{% block content %}
+	<div class="text-center">
+		<h1>Listado de alertas</h1><br/>
+		<form action="" method="get">
+			<div class="row">
+				<div class="col-md-5">
+					{{ filter.form.username.label }}
+					{{ filter.form.username }}		
+				</div>
+				<div class="col-md-7">
+					{{ filter.form.rango_fecha.label }}
+					<div class="form-inline d-flex justify-content-center">
+						{{ filter.form.rango_fecha }}
+					</div>
+				</div>
+
+			</div><br/>
+	        <button class="btn btn-primary" type="submit">Buscar</button>
+	    </form><br/>
+		{% if object_list %}
+			<table class="table table-responsive table-striped">
+				<thead>
+					<tr >
+						<th class="text-center">Tipo de Alerta</th>
+						<th class="text-center">Usuario</th>
+						<!--<th class="text-center">Atendida</th>-->
+						<th class="text-center">Dirección</th>
+						<th class="text-center">Fecha</th>
+						<th class="text-center">Ver Ubicación</th>
+						<th class="text-center">Detalle</th>
+						<!--<th class="text-center">Enviar Notificación</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					{% for object in object_list %}
+						<tr>
+							<td>
+								{% for key,item in tipo_alerta.items %}
+									{% if key == object.tipo %}
+										{{item}}
+									{% endif %}
+								{% endfor %}
+							</td>
+							<td>{{ object.usuario.user.username }}</td>
+							<!--<td>{% if object.atendida %}Si{%else%}No{% endif %}</td>-->
+							<td>{{ object.ubicacion }}</td>
+							<td>{{ object.fecha }}</td>
+							<td><a href="#" onclick="show_map_modal({{object.latitud}},{{object.longitud}});">
+								<i class="fa fa-map-marker" aria-hidden="true"></i> Ver</a>
+							</td>
+							<td><a href="{% url 'alerta_detail' object.id %}">
+								<i class="fa fa-file-text" aria-hidden="true"></i> Detalle</a>
+							</td>
+							<!--<td><a href="{% url 'send_notification' object.id %}">
+								<i class="fa fa-bell" aria-hidden="true"></i> Enviar Notificación</a>
+							</td>-->
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% include 'base.paginator.html' with paginator=page_obj %}
+		{% else %}
+		    <div class="alert alert-warning" role="alert">
+	            No se encontraron registros de Alertas 
+	        </div>
+		{% endif %}
+	</div>
+	<a role="button" class="btn btn-secondary" href="{% url 'user_list' %}">Regresar</a>
+	{% include 'base.modals.html' %}
+{% endblock %}
+{% block extraJs %}
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB2JmjC8UmVNtWXAUIMkhYG1_xf0QKrzI"></script>
+	<script type="text/javascript">
+	$('#id_rango_fecha_0').datepicker({
+	    format: 'yyyy-mm-dd',
+	    language: 'es'
+	});
+	$('#id_rango_fecha_1').datepicker({
+	    format: 'yyyy-mm-dd',
+	    language: 'es'
+	});
+	</script>
+{% endblock %}

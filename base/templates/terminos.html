@@ -1,0 +1,13 @@
+{% extends 'base.template.html' %}
+{% load static from staticfiles %}
+{% block title %}Terminos y condiciones{% endblock %}
+{% block content %}
+	{% if show_update %}
+		<a href="{% url 'update-terminos'%}">
+			<i class="fa fa-edit" aria-hidden="true"></i>Editar</a>
+	{% endif %}
+	<br/>
+		{{object.texto}}
+	<br/>
+
+{% endblock %}

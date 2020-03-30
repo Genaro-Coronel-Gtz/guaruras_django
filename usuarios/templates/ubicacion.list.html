@@ -1,0 +1,54 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Listado de Ubicaciones{% endblock %}
+{% block content %}
+	<div class="text-center">
+		<h1>Listado de ubicaciones</h1><br/>
+		{% if error %}
+			<div class="alert alert-danger" role="alert">
+	  			{{error}}
+			</div>
+		{% else %}
+			{% if object_list %}
+				<table class="table table-responsive table-striped">
+					<thead>
+						<tr >
+							<th class="text-center">Nombre de Usuario</th>
+							<th class="text-center">Servicio</th>
+							<th class="text-center">Latitud</th>
+							<th class="text-center">Longitud</th>
+							<th class="text-center">Fecha</th>
+							<th class="text-center">Mapa</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for object in object_list %}
+							<tr>
+								<td>{{ object.usuario.user.username }}</td>
+								<td>{{ object.servicio }}</td>
+								<td>{{ object.latitud }}</td>
+								<td>{{ object.longitud }}</td>
+								<td>{{ object.fecha }}</td>
+								<td>
+									<a href="#" onclick="show_map_modal({{object.latitud}},{{object.longitud}});">
+										<i class="fa fa-map-marker" aria-hidden="true"></i>
+									Ver Mapa</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{% include 'base.paginator.html' with paginator=page_obj %}
+			{% else %}
+			    <div class="alert alert-warning" role="alert">
+		            No se encontraron registros de ubicaciones para este usuario 
+		        </div>
+			{% endif %}
+		{% endif %}
+		<a role="button" class="btn btn-secondary" href="{% url 'user_list'%}">Regresar</a>
+		{% include 'base.modals.html' %}
+	</div>
+{% endblock %}
+{% block extraJs %}
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB2JmjC8UmVNtWXAUIMkhYG1_xf0QKrzI"></script>
+{% endblock %}

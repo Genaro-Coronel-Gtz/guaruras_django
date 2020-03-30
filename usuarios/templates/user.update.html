@@ -1,0 +1,46 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Actualizar{% endblock %}
+{% block content %}
+  <div class="text-center">
+    <h1>Actualizar de Usuarios</h1><hr>
+    <form action="" method="post">
+    {% csrf_token %}
+
+      <div class="form-group row {% if form.username.errors %}is-invalid{% endif %}">
+          <label for="{{ form.username.auto_id }}" class="col-sm-2 col-form-label">
+            {{ form.username.label }}
+          </label>
+          <div class="col-sm-10">
+            {{ form.username }}
+          </div>
+          {% include 'base.forms.errors.html' with form_errors=form.username.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div><br/>
+
+      <div class="form-group row {% if form.email.errors %}is-invalid{% endif %}">
+          <label for="{{ form.email.auto_id }}" class="col-sm-2 col-form-label">
+            {{ form.email.label }}
+          </label>
+          <div class="col-sm-10">
+            {{ form.email }}
+          </div>
+          {% include 'base.forms.errors.html' with form_errors=form.email.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div><br/>
+          
+      <div class="form-group row {% if form.nombre_empresa.errors %}is-invalid{% endif %}">
+          <label for="{{ form.nombre_empresa.auto_id }}" class="col-sm-2 col-form-label">
+            {{ form.nombre_empresa.label }}
+          </label>
+          <div class="col-sm-10">
+            {{ form.nombre_empresa }}
+          </div>
+          {% include 'base.forms.errors.html' with form_errors=form.nombre_empresa.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div><br/>
+
+      <div>
+         <button type="submit" class="btn btn-primary">Editar</button>
+      </div>
+    </form>
+
+  </div>
+{% endblock %}

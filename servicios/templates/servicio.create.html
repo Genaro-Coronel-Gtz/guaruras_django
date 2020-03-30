@@ -1,0 +1,45 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Servicios{% endblock %}
+{% block content %}
+	<div class="text-center">
+		<h1>Registrar nuevo servicio</h1><hr>
+		<form action="{% url 'servicio_register' %}" method="post">
+			{% csrf_token %}
+			{% for field in form %}
+				{% if forloop.counter < 5 %}
+					<div class="form-group row {% if field.errors %}is-invalid{% endif %}">
+						<label for="{{ field.auto_id }}" class="col-sm-2 col-form-label">
+						{{ field.label }}
+						</label>
+						<div class="col-sm-10">
+						{{ field }}
+						</div>
+						{% include 'base.forms.errors.html' with form_errors=field.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+					</div><br/>
+				{% endif %}
+			{% endfor %}
+			<div class="form-group row">
+				<div class="col-md-5">		
+						{{ form.guardias_list }}
+				</div>
+				<div class="col-md-2">
+					<a onclick="move_select_text('#id_guardias_list','#id_guardias')">
+						<i class="fa fa-arrow-right" aria-hidden="true" style="cursor:pointer"></i>
+					</a>
+					<br/>
+					<a onclick="move_select_text('#id_guardias','#id_guardias_list')">
+						<i class="fa fa-arrow-left" aria-hidden="true" style="cursor:pointer"></i>
+					</a>
+				</div>
+				<div class="col-md-5">
+					{{ form.guardias }}
+				</div>
+			</div>
+
+			<div class="text-center">
+				<button type="submit" class="btn btn-success">Registrar</button>
+			</div>
+		</form>
+	</div>
+{% endblock %}

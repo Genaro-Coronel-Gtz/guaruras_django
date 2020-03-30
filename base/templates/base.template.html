@@ -1,0 +1,103 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8">
+        <meta name="author" content="dakonondevelopers">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	<link rel="stylesheet" type="text/css" href="{% static 'plugins/bootstrap4/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <link id="favicon" rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+        <!-- Bootstrap core CSS-->
+        <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+        <!-- Custom fonts for this template-->
+        <!-- <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+        <!-- Page level plugin CSS-->
+        <!-- <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet"> -->
+        <!-- Custom styles for this template-->
+        <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+
+    	{% block extraCss %}{% endblock %}
+        <title id="title-page">{% block title %}{% endblock %}</title>
+    </head>
+    <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    	{% include 'base.navbar.html' %}
+        <!-- <div class="container"> -->
+        <div class="content-wrapper">
+            <div class="container-fluid">
+              <!-- Breadcrumbs-->
+              <!-- <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="#">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">My Dashboard</li>
+              </ol> -->
+                {% include 'base.alert.msg.html' %}
+        <!-- </div> -->
+                {% block superContent %}
+                    <div class="container" id="content">
+                        {% block content %}{% endblock %}
+                    </div>
+                {%endblock%}
+            </div>
+        </div>
+        <!-- <footer>
+    		{% include 'base.footer.html' %}
+    	</footer> -->
+    	<script type="text/javascript" src="{% static 'plugins/bootstrap4/js/jquery-3.2.1.min.js' %}"></script>
+    	<script type="text/javascript" src="{% static 'plugins/bootstrap4/js/popper.min.js' %}"></script>
+    	<script type="text/javascript" src="{% static 'plugins/bootstrap4/js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/bootstrap-datepicker//js/bootstrap-datepicker.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/bootstrap-datepicker//js/bootstrap-datepicker.es.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.formset.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/funciones.js' %}"></script>
+
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+        <script src="{% static 'js/sb-admin.min.js' %}"></script>
+        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+        {% if request.user.is_authenticated %}
+            <script>
+                // https://documentation.onesignal.com/v3.0/docs/web-push-sdk#section--addlistenerfornotificationopened-
+                var OneSignal = window.OneSignal || [];
+                    OneSignal.push(["init", {
+                    appId: "84d86d4d-5c55-4653-9ff5-3eafd056cdd4",
+                    autoRegister: true, /* Set to true to automatically prompt visitors */
+                    notifyButton: {
+                      enable: true /* Set to false to hide */
+                    }
+                }]);
+
+                function receive_notification(){
+                    document.getElementById("title-page").text="**ALERTA**";
+                    document.getElementById("favicon").href="{% static 'img/alerta.png' %}";
+                    var audio = new Audio("{% static 'sounds/alertasound.mp3' %}");
+                    audio.play();
+                }
+                function notification_opened(){
+                    document.getElementById("title-page").text=title;
+                    document.getElementById("favicon").href="{% static 'img/favicon.png' %}";
+                    window.location = "{% url 'alerta_all_list' %}"
+                }
+                var title = $("#title-page").text();
+                setTimeout(function(){
+                    // OneSignal.push(["addListenerForNotificationOpened", function(data) {
+                    //     notification_opened();
+                    // }]);
+                    OneSignal.on(OneSignal.EVENTS.NOTIFICATION_CLICKED,function(evnt){
+                        notification_opened();
+                    });
+                    OneSignal.on(OneSignal.EVENTS.NOTIFICATION_DISPLAYED,function(evnt){
+                        console.log("notificacion recibida");
+                        receive_notification()
+                    });
+                }, 1000)
+
+            </script>
+        {% endif %}
+    	{% block extraJs %}{% endblock %}
+    </body>
+</html>

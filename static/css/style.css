@@ -1,0 +1,111 @@
+html {
+  line-height: 1.5;
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Thin), url("../fonts/roboto/Roboto-Thin.woff2") format("woff2"), url("../fonts/roboto/Roboto-Thin.woff") format("woff");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Light), url("../fonts/roboto/Roboto-Light.woff2") format("woff2"), url("../fonts/roboto/Roboto-Light.woff") format("woff");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Regular), url("../fonts/roboto/Roboto-Regular.woff2") format("woff2"), url("../fonts/roboto/Roboto-Regular.woff") format("woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Medium), url("../fonts/roboto/Roboto-Medium.woff2") format("woff2"), url("../fonts/roboto/Roboto-Medium.woff") format("woff");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Bold), url("../fonts/roboto/Roboto-Bold.woff2") format("woff2"), url("../fonts/roboto/Roboto-Bold.woff") format("woff");
+  font-weight: 700;
+}
+
+body{
+	background-color: #d3d3d3;
+}
+
+#content{
+	padding-top:25px;
+	padding-bottom:25px;
+	background-color: white;
+	border-radius: 5px;
+	min-height: 450px;
+  margin-bottom: 100px;
+	//height: 90vh;
+}
+
+/* Mensajes de Error */
+ul.errorlist {
+    background: transparent !important;
+    color: inherit !important;
+    margin: 0 !important;
+}
+ul.errorlist li {
+    font-size: inherit !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+}
+.errorlist {margin-bottom: 0}
+.msg-error {
+    color:#F56954 !important;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.error-notice {
+  margin: 5px 50px 5px; /* Making sure to keep some distance from all side */
+}
+
+.oaerror {
+  margin: 0 auto; /* Centering Stuff */
+  background-color: #FFFFFF; /* Default background */
+  padding: 5px;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+}
+.oaerror ul {
+    display: inline-block;
+    padding-left: 0;
+}
+.oaerror ul li {
+    list-style: none;
+    text-align: justify;
+}
+
+.danger {
+  border-left-color: #d9534f; /* Left side border color */
+  background-color: rgba(217, 83, 79, 0.1); /* Same color as the left border with reduced alpha to 0.1 */
+}
+
+.danger strong {
+  color:  #d9534f;
+}
+
+.is-invalid input, .is-invalid label
+{
+	border-color: #dc3545;
+	color:#dc3545;
+}
+
+/*
+ * Funcionalidades del dynamic form
+*/
+.dynamic-form label{
+  margin-right: 15px;
+}

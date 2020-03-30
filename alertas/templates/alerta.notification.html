@@ -1,0 +1,25 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Enviar Notificaciones{% endblock %}
+{% block content %}
+	<div class="text-center">
+		<h1>Enviar Notificaciones</h1><hr>
+		<form action="" method="post">
+			{% csrf_token %}
+			<h3>{{ form.guardias_list.label }}</h3><br/>
+			<div class="form-check form-check-inline {% if form.guardias_list.errors %}is-invalid{% endif %}">
+
+				<div class="col-sm-12 ">
+					{% for option in form.guardias_list %}
+						{{ option }}
+					{% endfor %}
+				</div>
+				{% include 'base.forms.errors.html' with form_errors=form.guardias_list.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+			</div><br/>
+
+			<div class="text-center">
+				<button type="submit" class="btn btn-primary">Enviar</button>
+			</div>
+		</form>
+	</div>
+{% endblock %}

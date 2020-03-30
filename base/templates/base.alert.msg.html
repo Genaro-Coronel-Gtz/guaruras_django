@@ -1,0 +1,8 @@
+{% load i18n %}
+{% for message in messages %}
+    {% if message %}
+        <div class="alert alert-success row" role="alert">
+            {{message}}
+        </div>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,65 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Actualizar Servicio{% endblock %}
+{% block content %}
+	<div class="text-center">
+		<h1>Actualizar servicio</h1><hr>
+		<form action="" method="post">
+			{% csrf_token %}
+			{% for field in form %}
+				{% if forloop.counter < 5 %}
+					<div class="form-group row {% if field.errors %}is-invalid{% endif %}">
+						<label for="{{ field.auto_id }}" class="col-sm-2 col-form-label">
+						{{ field.label }}
+						</label>
+						<div class="col-sm-10">
+						{{ field }}
+						</div>
+						{% include 'base.forms.errors.html' with form_errors=field.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+					</div><br/>
+				{% endif %}
+			{% endfor %}
+			<div class="form-group row {% if form.guardias.errors %}is-invalid{% endif %}">
+				<label for="{{ form.guardias.auto_id }}" class="col-sm-2 col-form-label">
+				{{ form.guardias.label }}
+				</label>
+				<div class="col-sm-10">
+				{{ form.guardias }}
+				</div>
+				{% include 'base.forms.errors.html' with form_errors=form.guardias.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+			</div><br/>
+
+			<div id="map" style="height: 400px;width: 100%;"></div>
+
+	        <div class="row">
+	          <div class="col-md-6 {% if form.latitud_inicial.errors %}is-invalid{% endif %}">
+	              <label for="{{ form.latitud_inicial.auto_id }}" class="col-form-label">
+	                {{ form.latitud_inicial.label }}
+	              </label>
+	              {{ form.latitud_inicial }}
+	              {% include 'base.forms.errors.html' with form_errors=form.latitud_inicial.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+	          </div>
+	          <div class="col-md-6 {% if form.longitud_inicial.errors %}is-invalid{% endif %}">
+	              <label for="{{ form.longitud_inicial.auto_id }}" class="col-form-label">
+	                {{ form.longitud_inicial.label }}
+	              </label>
+	              {{ form.longitud_inicial }}
+	              {% include 'base.forms.errors.html' with form_errors=form.longitud_inicial.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+	          </div>
+	        </div><br/>
+
+			<div class="text-center">
+				<a role="button" class="btn btn-secondary" href="{% url 'servicio_list' %}">Regresar</a>
+				<button type="submit" class="btn btn-primary">Actualizar</button>
+			</div>
+		</form>
+	</div>
+{% endblock %}
+{% block extraJs %}
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB2JmjC8UmVNtWXAUIMkhYG1_xf0QKrzI"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      load_google_map(parseFloat($('#id_latitud_inicial').val()),parseFloat($('#id_longitud_inicial').val()));
+    });
+  </script>
+{% endblock %}

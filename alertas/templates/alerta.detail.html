@@ -1,0 +1,37 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Detalle Alertas{% endblock %}
+{% block content %}
+	<div class="text-center">
+
+		<div class="card">
+		  <div class="card-block">
+		    <h4 class="card-title">Alerta</h4>
+		    <div class="card-text">
+		    	<ul class="list-group list-group-flush">
+		    		<li class="list-group-item"><b>Tipo de Alerta: </b>			
+		    			{% for key,item in tipo_alerta.items %}
+							{% if key == object.tipo %}
+								{{item}}
+							{% endif %}
+						{% endfor %}
+					</li>
+		    		<li class="list-group-item"><b>Usuario: </b>{{ object.usuario.user.username }}</li>
+		    		<li class="list-group-item"><b>Fecha: </b>{{ object.fecha }}</li>
+		    		<li class="list-group-item"><b>Ubicación: </b>{{ object.ubicacion }}</li>
+		    	</ul>
+		    </div>
+		  </div>
+		</div>
+		
+		<div id="map" style="height: 400px;width: 100%;"></div>
+	</div>
+{% endblock %}
+{% block extraJs %}
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB2JmjC8UmVNtWXAUIMkhYG1_xf0QKrzI"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      set_map(parseFloat({{ object.latitud }}),parseFloat({{ object.longitud }}));
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Registrarse{% endblock %}
+{% block content %}
+  <div class="text-center">
+    <h1>Registro de Usuarios</h1><hr>
+    <form action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+
+      <div class="form-group row {% if form.username.errors %}is-invalid{% endif %}">
+          <label for="{{ form.username.auto_id }}" class="col-sm-2 col-form-label">
+            {{ form.username.label }}
+          </label>
+          <div class="col-sm-10">
+            {{ form.username }}
+          </div>
+          {% include 'base.forms.errors.html' with form_errors=form.username.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div><br/>
+
+      <div class="form-group row {% if form.email.errors %}is-invalid{% endif %}">
+          <label for="{{ form.email.auto_id }}" class="col-sm-2 col-form-label">
+            {{ form.email.label }}
+          </label>
+          <div class="col-sm-10">
+            {{ form.email }}
+          </div>
+          {% include 'base.forms.errors.html' with form_errors=form.email.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div><br/>
+
+      <div class="form-group row {% if form.password1.errors %}is-invalid{% endif %}">
+          <label for="{{ form.password1.auto_id }}" class="col-sm-2 col-form-label">
+            {{ form.password1.label }}
+          </label>
+          <div class="col-sm-10">
+            {{ form.password1 }}
+          </div>
+          {% include 'base.forms.errors.html' with form_errors=form.password2.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div><br/>
+
+      <div class="form-group row {% if form.password2.errors %}is-invalid{% endif %}">
+          <label for="{{ form.password2.auto_id }}" class="col-sm-2 col-form-label">
+            {{ form.password2.label }}
+          </label>
+          <div class="col-sm-10">
+            {{ form.password2 }}
+          </div>
+          {% include 'base.forms.errors.html' with form_errors=form.password2.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div><br/>
+          
+      <div class="form-group row {% if form.nombre_empresa.errors %}is-invalid{% endif %}">
+          <label for="{{ form.nombre_empresa.auto_id }}" class="col-sm-2 col-form-label">
+            {{ form.nombre_empresa.label }}
+          </label>
+          <div class="col-sm-10">
+            {{ form.nombre_empresa }}
+          </div>
+          {% include 'base.forms.errors.html' with form_errors=form.nombre_empresa.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div><br/>
+
+      <div class="form-group row {% if form.group.errors %}is-invalid{% endif %}">
+          <label for="{{ form.group.auto_id }}" class="col-sm-2 col-form-label">
+            {{ form.group.label }}
+          </label>
+          <div class="col-sm-10">
+            {{ form.group }}
+          </div>
+          {% include 'base.forms.errors.html' with form_errors=form.group.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div><br/>
+
+      <div id="servicio" style="display:none;">
+
+        <h4>Servicio</h4><br/>
+
+        <div class="form-group row {% if form.kilometraje.errors %}is-invalid{% endif %}">
+            <label for="{{ form.kilometraje.auto_id }}" class="col-sm-2 col-form-label">
+              {{ form.kilometraje.label }}
+            </label>
+            <div class="col-sm-10">
+              {{ form.kilometraje }}
+            </div>
+            {% include 'base.forms.errors.html' with form_errors=form.kilometraje.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+        </div><br/>
+
+
+        <div class="form-group row {% if form.velocidad.errors %}is-invalid{% endif %}">
+            <label for="{{ form.velocidad.auto_id }}" class="col-sm-2 col-form-label">
+              {{ form.velocidad.label }}
+            </label>
+            <div class="col-sm-10">
+              {{ form.velocidad }}
+            </div>
+            {% include 'base.forms.errors.html' with form_errors=form.velocidad.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+        </div><br/>
+
+        <div class="form-group row {% if form.telefono.errors %}is-invalid{% endif %}">
+            <label for="{{ form.telefono.auto_id }}" class="col-sm-2 col-form-label">
+              {{ form.telefono.label }}
+            </label>
+            <div class="col-sm-10">
+              {{ form.telefono }}
+            </div>
+            {% include 'base.forms.errors.html' with form_errors=form.telefono.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+        </div><br/>
+
+        <div class="form-group row {% if form.frecuencia_rastreo.errors %}is-invalid{% endif %}">
+            <label for="{{ form.frecuencia_rastreo.auto_id }}" class="col-sm-2 col-form-label">
+              {{ form.frecuencia_rastreo.label }}
+            </label>
+            <div class="col-sm-10">
+              {{ form.frecuencia_rastreo }}
+            </div>
+            {% include 'base.forms.errors.html' with form_errors=form.frecuencia_rastreo.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+        </div><br/>
+
+        <div id="guardia" style="display:none;">
+          <div class="form-group row {% if form.guardias.errors %}is-invalid{% endif %}">
+              <label for="{{ form.guardias.auto_id }}" class="col-sm-2 col-form-label">
+                {{ form.guardias.label }}
+              </label>
+              <div class="col-sm-10">
+                {{ form.guardias }}
+              </div>
+              {% include 'base.forms.errors.html' with form_errors=form.guardias.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+          </div><br/>
+
+            <div class="form-group row {% if form.notificacion.errors %}is-invalid{% endif %}">
+              <label for="{{ form.notificacion.auto_id }}" class="col-sm-2 col-form-label">
+                {{ form.notificacion.label }}
+              </label>
+              <div class="col-sm-10">
+                {{ form.notificacion }}
+              </div>
+              {% include 'base.forms.errors.html' with form_errors=form.notificacion.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+          </div><br/>
+        </div>
+
+        <div id="map" style="height: 400px;width: 100%;"></div>
+
+        <div class="row">
+          <div class="col-md-6 {% if form.latitud_inicial.errors %}is-invalid{% endif %}">
+              <label for="{{ form.latitud_inicial.auto_id }}" class="col-form-label">
+                {{ form.latitud_inicial.label }}
+              </label>
+              {{ form.latitud_inicial }}
+              {% include 'base.forms.errors.html' with form_errors=form.latitud_inicial.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+          </div>
+          <div class="col-md-6 {% if form.longitud_inicial.errors %}is-invalid{% endif %}">
+              <label for="{{ form.longitud_inicial.auto_id }}" class="col-form-label">
+                {{ form.longitud_inicial.label }}
+              </label>
+              {{ form.longitud_inicial }}
+              {% include 'base.forms.errors.html' with form_errors=form.longitud_inicial.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+          </div>
+        </div><br/>
+
+      </div>
+
+
+      <div>
+         <button type="submit" class="btn btn-success">Registrarse</button>
+      </div>
+    </form>
+
+  </div>
+  <br />
+{% endblock %}
+{% block extraJs %}
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB2JmjC8UmVNtWXAUIMkhYG1_xf0QKrzI&callback=load_google_map"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      register_show($('#id_group').val());
+    });
+  </script>
+{% endblock %}

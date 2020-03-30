@@ -1,0 +1,14 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Eliminar Pariente {% endblock %}
+{% block content %}
+	<div class="text-center">
+	    <h1>Borrar pariente <b>{{object.pariente.user.username}}</b></h1><hr>
+	    <form method="post">
+	        {% csrf_token %}
+	        <p>Si en realidad deseas borrar este registro da click en:</p>
+	        <button type="submit" class="btn btn-danger">Borrar </button>
+	    </form><br>
+	    <a role="button" class="btn btn-info" href="{% url 'guardias_asignados_list' object.jefe_seguridad_id %}"> Regresar </a>
+	</div>
+{% endblock %}

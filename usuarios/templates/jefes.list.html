@@ -1,0 +1,43 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Listado de Jefes de Seguridad{% endblock %}
+{% block content %}
+	<div class="text-center">
+		<h1>Listado de Jefes de Seguridad</h1><br/>
+		{% if object_list %}
+			<table class="table table-responsive table-striped">
+				<thead>
+					<tr >
+						<th class="text-center">Nombre de Usuario</th>
+						<th class="text-center">Correo</th>
+						<th class="text-center">Tipo de Usuario</th>
+						<th class="text-center">Nombre de Empresa</th>
+						<th class="text-center">Activo</th>
+						<th class="text-center">Parientes</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for object in object_list %}
+						<tr>
+							<td>{{ object.user.username }}</td>
+							<td>{{ object.user.email }}</td>
+							<td>{{ object.user.groups.all.0 }}</td>
+							<td>{{ object.nombre_empresa }}</td>
+							<td>{% if object.user.is_active %}Si{% else %} No {% endif%} </td>
+							<td>
+								<a href="{% url 'guardias_asignados_list' object.id %}">
+									<i class="fa fa-group" aria-hidden="true"></i> 
+								Ver</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% include 'base.paginator.html' with paginator=page_obj %}
+		{% else %}
+		    <div class="alert alert-warning" role="alert">
+	            No se encontraron registros de Jefes de Seguridad 
+	        </div>
+		{% endif %}
+	</div>
+{% endblock %}

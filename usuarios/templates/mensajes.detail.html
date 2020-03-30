@@ -1,0 +1,22 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Detalle de Mensaje{% endblock %}
+{% block content %}
+	<div class="text-center">
+		<div class="card">
+		  <div class="card-block">
+		    <h4 class="card-title">Mensaje</h4>
+		    <div class="card-text">
+		    	<ul class="list-group list-group-flush">
+		    		<li class="list-group-item"><b>Usuario: </b>			
+		    			{{ object.usuario.user.username }}
+					</li>
+		    		<li class="list-group-item"><b>Mensaje: </b>{{ object.mensaje }}</li>
+		    		<li class="list-group-item"><b>Fecha: </b>{{ object.fecha }}</li>
+		    		
+		    	</ul>
+		    </div>
+		  </div>
+		</div>
+	</div>
+{% endblock %}

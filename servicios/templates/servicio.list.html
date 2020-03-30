@@ -1,0 +1,47 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Listado de Servicios{% endblock %}
+{% block content %}
+	<div class="text-center">
+		<h1>Listado de Servicios</h1><br/>
+		{% if object_list %}
+			<table class="table table-responsive table-striped">
+				<thead>
+					<tr >
+						<th class="text-center">Límite de Kilometraje</th>
+						<th class="text-center">Límite de Velocidad</th>
+						<th class="text-center">Télefono de Contacto</th>
+						<th class="text-center">Frecuencia de Rastreo</th>
+						<th class="text-center">Cliente</th>
+						<!-- <th class="text-center">Guardias Asignados</th> -->
+						<th class="text-center">Editar</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for object in object_list %}
+						<tr>
+							<td>{{ object.kilometraje }}</td>
+							<td>{{ object.velocidad }}</td>
+							<td>{{ object.telefono }}</td>
+							<td>{{ object.frecuencia_rastreo }}</td>
+							<td>{{ object.cliente.user.username }}</td>
+							{% comment %}
+							<!-- <td><a href="{% url 'guardias_list' object.pk %}">
+								<i class="fa fa-search" aria-hidden="true"></i> Ver</a>
+							</td> -->
+							{% endcomment %}
+							<td><a href="{% url 'servicio_update' object.pk %}">
+								<i class="fa fa-edit" aria-hidden="true"></i> Editar</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% include 'base.paginator.html' with paginator=page_obj %}
+		{% else %}
+		    <div class="alert alert-warning" role="alert">
+	            No se encontraron registros de Servicios 
+	        </div>
+		{% endif %}
+	</div>
+{% endblock %}

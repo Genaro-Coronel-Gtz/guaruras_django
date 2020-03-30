@@ -1,0 +1,32 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Detalle de Usuario{% endblock %}
+{% block content %}
+	<div>
+		<form method="post">
+			{% csrf_token %}
+			<h1 class="text-center">Detalle de Usuario</h1><br/>
+			<div class="card">
+				<div class="card-block">
+					<h4 class="card-title">Nombre de Usuario: {{object.user.username}}</h4>
+					<div class="card-block">
+						<ul>
+							<li><b>Correo: </b> {{object.user.email}} </li>
+							<li><b>Empresa: </b> {{object.nombre_empresa}} </li>
+							<li><b>Activo: </b> {% if object.user.is_active %}Si{% else %} No {% endif%} </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<div class="text-center">
+				<h4>
+					¿Desea
+					{% if object.user.is_active %}Deshabilitar{% else %} Habilitar {% endif%} este usuario?
+				</h4>
+				<button type="submit" class="btn btn-primary">Si</button>
+				<a role="button" class="btn btn-secondary" href="{% url 'user_list' %}">No</a>
+			</div>
+		</form>
+	</div>
+{% endblock %}

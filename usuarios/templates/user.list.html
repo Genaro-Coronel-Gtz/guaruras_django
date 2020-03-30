@@ -1,0 +1,66 @@
+{% extends 'base.template.html' %}
+{% load staticfiles %}
+{% block title %}Listado de Usuarios{% endblock %}
+{% block content %}
+	<div class="text-center">
+		<h1>Listado de usuarios</h1><br/>
+		{% if object_list %}
+			<table class="table table-responsive table-striped">
+				<thead>
+					<tr >
+						<th class="text-center">Nombre de Usuario</th>
+						<th class="text-center">Correo</th>
+						<th class="text-center">Tipo de Usuario</th>
+						<th class="text-center">Nombre de Empresa</th>
+						<th class="text-center">Activo</th>
+						<th class="text-center">Historial de Alertas</th>
+						<th class="text-center">Historial de Ubicaciones</th>
+						<th class="text-center" colspan="2">Opciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for object in object_list %}
+						<tr>
+							<td>{{ object.user.username }}</td>
+							<td>{{ object.user.email }}</td>
+							<td>{{ object.user.groups.all.0 }}</td>
+							<td>{{ object.nombre_empresa }}</td>
+							<td>{% if object.user.is_active %}Si{% else %} No {% endif%} </td>
+							<td>
+								<a href="{% url 'alerta_list' object.id %}">
+									<i class="fa fa-search" aria-hidden="true"></i> 
+								Ver</a>
+							</td>
+							<td>
+								<a href="{% url 'ubicacion_list' object.id %}">
+									<i class="fa fa-map-marker" aria-hidden="true"></i>
+								Ver</a>
+							</td>
+							<td>
+								<a href="{% url 'user_update' object.user.id %}">
+									<i class="fa fa-edit" aria-hidden="true"></i> 
+								Editar </a>
+							</td>
+							<td>
+								{% if object.user.is_active %}
+								<a href="{% url 'user_detail' object.user.id %}">
+									<i class="fa fa-trash" aria-hidden="true"></i> 
+								Deshabilitar</a>
+								{% else %}
+									<a href="{% url 'user_detail' object.user.id %}">
+									<i class="fa fa-check" aria-hidden="true"></i> 
+								Habilitar</a>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% include 'base.paginator.html' with paginator=page_obj %}
+		{% else %}
+		    <div class="alert alert-warning" role="alert">
+	            No se encontraron registros de Usuarios 
+	        </div>
+		{% endif %}
+	</div>
+{% endblock %}
