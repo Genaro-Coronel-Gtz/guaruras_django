@@ -8,6 +8,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import dj_database_url
+import django_heroku
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -197,3 +199,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = os.environ['EMAIL_PORT'] #587
 EMAIL_USE_TLS = True
 EMAIL_FROM = EMAIL_HOST_USER
+
+django_heroku.settings(locals())
