@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Using Django 1.11.4.
 For more information on this file, see
 https://docs.djangoproject.com/en/1.11/topics/settings/
